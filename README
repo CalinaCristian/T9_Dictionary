@@ -1,0 +1,42 @@
+CALINA CRISTIAN FLORIN 313CA
+
+
+Am folosit srand(time(NULL)) pentru a insera prioritatiile random. Am citit si 
+scris in fisiere folosind ifstream si ofstream specifice C++-ului.
+Pentru primele N linii am citit cuvantul si numarul de aparitii ale acestuia
+si am apleat functia addWord din Trie pentru a adauga cuvantul in treapul din Trie.
+
+Functia addWord din Trie primeste ca parametrii un string si un int, cuvantul si nr
+de aparitii ale acestuia. Am declarat un nod de tipul Trie * current pentru a putea
+parcurge nodurile din Trie (cu this nu se poate). Am creeat o cheie de tip std::pair 
+ce primeste numarul de aparitii pe key.first si cuvantul pe key.second si apoi am 
+convertit fiecare litera din cuvant intr-o cifra , urmand sa creez si sa ma duc pe 
+nodul cifrei din trie, iar la final, cand ajungeam pe ultima cifra a numarului introduceam
+cheia respectiva in treap cu o prioritate random.
+
+Pe urmatoarele M linii am intializat un string "before" si un string "after" cu "", 
+before reprezentand ce este inaintea '*' in numar si after ce este dupa. Am luat un 
+char* aux ce retinea cu ajutorul strdup numarul(string) pentru a putea face strtok
+pe acesta ca sa retin in before ce este inainte de '*'. Apoi am comparat dimensiunea 
+dintre tot numarul si before si daca aceasta era mai mare insemna ca avem caracterul
+'*' deci lui after ii atribuiam adresa de inceput a lui number[before.size() + 1] 
+(toate cifrele de dupa '*'). Apoi retineam in stringul result ce intoarce functia
+searchWord , il tipaream in "date.out" si eliberam auxul folosind free(aux).
+
+Funtia searchWord primeste ca parametrii stringurile after si before. Iau un nod auxiliar 
+"current" pentru a putea parcurge nodurile din Trie la fel ca in addWord. De asemenea , 
+iau si un pair de int si string (result), pentru a putea incrementa valoarea cuvantului 
+ce il reinserez si a il putea returna. Initializez un int requested cu 0 , acesta urmand in
+caz ca after difera de "" sa ia valoarea acestuia convertita in int. Parcurg nodurile din 
+Trie pana ajung la cel dorit (precum in addWord) si folosesc o metoda de impartire (%) a 
+variabilei requested la numarul de noduri pentru cazul in care nu sunt suficiente cuvinte in 
+treap. Daca requested este 0 caut folosind functia findK al nr_nodes-lea element iar daca 
+requested nu este 0 caut al requested-ulea element folosind findK. Sterg nodul gasit pentru 
+a-i putea incrementa valoarea si a-l insera la loc cu noua sa valoare iar apoi returnez
+cuvantul acestuia pentru a fi scris in "date.out". 
+
+Treap-ul este implementat conform pseudocodului din laborator 11 , cu exceptia functiilor
+irelevante temei. Singura diferenta este suprascrierea operatorilor "<" si ">" pentru a 
+compara pair-uri conform necesitatii mele si declararea cheii de tip pair<int,string> pentru
+a retine atat numarul de aparitii cat si cuvantul.
+
